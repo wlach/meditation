@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Meditation Bell</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="css/style.css" rel="stylesheet">
+    <link href="img/bell-32.png" rel="shortcut icon">
+    <style type="text/css">
+    </style>
+  </head>
+  <body>
+    <div class="background">
+      <audio id="bell" src="sounds/bell.mp3" preload="auto"></audio>
+      <div id="content">
+      </div>
+    </div>
+
+    <script id="meditationDialog" type="text/html">
+      <div id="meditation-dialog" style="display: none;">
+        <div class="meditation-timer">
+          <p id="meditation-text">{{duration}} minute meditation</p>
+          <div id="time-options">
+          </div>
+          <div id="start-button" class="full-btn">Begin</div>
+        </div>
+        <div id="about-link">
+          <a href="#">About</a>
+        </div>
+      </div>
+    </script>
+
+    <script id="aboutDialog" type="text/html">
+      <div id="about-dialog" style="display: none;">
+        <p>Written by <a href="http://wrla.ch" target="_blank">William Lachance</a> in the hopes that others will find it helpful. Source code freely <a href="http://github.com/wlach/meditation" target="_blank">available</a> under the MIT license.</p>
+        <p>Bell sound from "Kerri" at <a href="http://www.freesound.org/people/kerri/sounds/27421/"  target="_blank">freesound</a>.</p>
+        <p>Some design inspiration taken from <a href="http://helloform.com/projects/mind/" target="_blank">Mind application for iOS</a>.</p>
+        <div id="return-button" class="full-btn" style="margin-top:40px;">Return</div>
+      </div>
+    </script>
+
+    <script id="timeOptionButtons" type="text/html">
+      {{#timeIntervals}}
+      <div id="time-button-{{value}}" class="time-selector-btn">{{value}}</div>
+      {{/timeIntervals}}
+    </script>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/ICanHaz.min.js"></script>
+    <script src="js/index.js"></script>
+  </body>
+</html>

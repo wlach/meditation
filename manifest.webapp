@@ -1,0 +1,16 @@
+{
+  "name": "Meditation",
+  "description": "Simple timer suitable for meditation",
+  "launch_path": "/index.html",
+  "icons": {
+    "32": "/img/bell-32.png",
+    "48": "/img/bell-48.png",
+    "60": "/img/bell-60.png",
+    "128": "/img/bell-128.png"
+  },
+  "developer": {
+    "name": "William Lachance",
+    "url": "http://wrla.ch"
+  },
+  "default_locale": "en"
+}
