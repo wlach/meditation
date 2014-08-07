@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="301"
+   height="289"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="bell.svg"
+   inkscape:export-filename="/home/wlach/src/meditation-timer/img/bell-60.png"
+   inkscape:export-xdpi="22.978724"
+   inkscape:export-ydpi="22.978724">
+  <defs
+     id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3923">
+      <stop
+         style="stop-color:#ff0000;stop-opacity:1;"
+         offset="0"
+         id="stop3925" />
+      <stop
+         style="stop-color:#ff0000;stop-opacity:0;"
+         offset="1"
+         id="stop3927" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3913">
+      <stop
+         style="stop-color:#545454;stop-opacity:1;"
+         offset="0"
+         id="stop3915" />
+      <stop
+         style="stop-color:#3b3b3b;stop-opacity:1;"
+         offset="1"
+         id="stop3917" />
+    </linearGradient>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect2995"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect2991"
+       is_visible="true" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3923"
+       id="radialGradient3929"
+       cx="382.49994"
+       cy="2700.9211"
+       fx="382.49994"
+       fy="2700.9211"
+       r="140.5"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.42704445,-0.5693943,1.0499145,0.78743347,-2616.5804,791.91871)" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3913"
+       id="radialGradient3945"
+       cx="382.50082"
+       cy="2700.9204"
+       fx="382.50067"
+       fy="2700.9204"
+       r="140.5"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.42704432,-0.56939435,1.0499143,0.78743301,-2616.5794,791.92106)" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3913"
+       id="radialGradient4005"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.42704432,-0.56939435,1.0499143,0.78743301,-2616.5794,791.92106)"
+       cx="382.50082"
+       cy="2700.9204"
+       fx="382.50067"
+       fy="2700.9204"
+       r="140.5" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3923"
+       id="radialGradient4007"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.42704445,-0.5693943,1.0499145,0.78743347,-2616.5804,791.91871)"
+       cx="382.49994"
+       cy="2700.9211"
+       fx="382.49994"
+       fy="2700.9211"
+       r="140.5" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="146.25099"
+     inkscape:cy="137.7897"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="1213"
+     inkscape:window-height="881"
+     inkscape:window-x="688"
+     inkscape:window-y="42"
+     inkscape:window-maximized="0"
+     fit-margin-top="4"
+     fit-margin-left="10"
+     fit-margin-right="10"
+     fit-margin-bottom="4"
+     height="1488.19px">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2985"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       originx="-329.5px"
+       originy="-675.51503px" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Layer"
+     transform="translate(-172,-2476.4063)">
+    <path
+       sodipodi:type="arc"
+       style="fill:url(#radialGradient4005);fill-opacity:1;fill-rule:evenodd;stroke:url(#radialGradient4007);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="path3871"
+       sodipodi:cx="322.5"
+       sodipodi:cy="2620.9211"
+       sodipodi:rx="140"
+       sodipodi:ry="140"
+       d="m 462.5,2620.9211 a 140,140 0 1 1 -0.98818,-16.6046"
+       sodipodi:start="0"
+       sodipodi:end="6.164301"
+       sodipodi:open="true"
+       inkscape:transform-center-x="200"
+       inkscape:transform-center-y="-260.00009"
+       inkscape:export-filename="/home/wlach/src/meditation/img/bell-60.png"
+       inkscape:export-xdpi="19.217081"
+       inkscape:export-ydpi="19.217081"
+       transform="translate(-3.0304576,10.101525)" />
+  </g>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-329.5,-87.8471)">
+    <path
+       style="fill:none;stroke:#428bca;stroke-width:4.2750001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 421.86372,311.48222 c -8.55,0 -34.2,0 -34.2,-17.1 0,-17.1 25.65,-34.2 34.2,-42.75 11.39999,-34.2 14.25001,-42.75 25.65,-76.95 0,-8.55 12.825,-12.825 21.375,-12.825 0,-5.70001 4.275,-11.39999 4.275,-17.1 8.55,-8.55 17.1,0 17.1,0 0,0 4.275,11.39999 4.275,17.1 8.55,0 21.375,4.275 21.375,12.825 8.55,34.2 8.55,42.75 17.1,76.95 8.55,8.55 34.2,25.65 34.2,42.75 0,17.1 -25.65,17.1 -34.2,17.1 z"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccccccccc"
+       inkscape:export-filename="/home/wlach/bell.png"
+       inkscape:export-xdpi="20.093023"
+       inkscape:export-ydpi="20.093023" />
+    <path
+       style="fill:none;stroke:#428bca;stroke-width:4.2750001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 460.33872,311.48223 c 0,2.85 0,9.975 0,12.82499 8.55,8.55001 25.65,8.55001 34.2,0 0,-2.84999 0,-9.975 0,-12.825 -9.97501,0 -24.22499,1e-5 -34.2,1e-5 z"
+       id="path3003"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/wlach/bell.png"
+       inkscape:export-xdpi="20.093023"
+       inkscape:export-ydpi="20.093023" />
+  </g>
+</svg>
