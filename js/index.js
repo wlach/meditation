@@ -9,18 +9,25 @@ $(function() {
     if ($.inArray(selectedTimeInterval, timeIntervals) < 0) {
       selectedTimeInterval = 20;
     }
+    var nbOfTransitions = [0, 1, 2, 3, 4, 5];
+    var selectedNbOfTransitions = parseInt(window.localStorage.defaultNbOfTransitions);
+    if ($.inArray(selectedNbOfTransitions, nbOfTransitions) < 0) {
+      selectedNbOfTransitions = 0;
+    }
     var meditationProgressTimer = null;
     var lock = null;
 
-    $("#content").html(ich.meditationDialog({ 'duration': selectedTimeInterval }));
+    $("#content").html(ich.meditationDialog());
     $("#meditation-dialog").fadeIn('fast');
+    $("#meditation-text").html(ich.meditationText());
 
     $("#time-options").append(ich.timeOptionButtons({'timeIntervals': timeIntervals.map(function v(val) { return { "value": val } }) }));
+    $("#transition-options").append(ich.transitionOptionButtons({'nbOfTransitions': nbOfTransitions.map(function v(val) { return { "value": val } }) }));
 
     function intervalSelected(timeInterval) {
       selectedTimeInterval = timeInterval;
       window.localStorage.defaultTimeInterval = selectedTimeInterval;
-      $("#meditation-text").html(timeInterval + " minute meditation");
+      $("#meditation-text-duration").html(ich.meditationTextDuration({'duration': timeInterval}, true));
       $(".time-selector-btn").removeClass('btn-link-selected');
       $("#time-button-" + timeInterval).addClass('btn-link-selected');
     };
@@ -30,6 +37,20 @@ $(function() {
       });
     });
     intervalSelected(selectedTimeInterval);
+
+    function nbOfTransitionsSelected(nbOfTransitions) {
+      selectedNbOfTransitions = nbOfTransitions;
+      window.localStorage.defaultNbOfTransitions = nbOfTransitions;
+      $("#meditation-text-transitions").html(ich.meditationTextTransitions({'nbOfTransitions': nbOfTransitions, 'plural': (nbOfTransitions>1?'s':'')}, true));
+      $(".transitions-selector-btn").removeClass('btn-link-selected');
+      $("#nb-of-transitions-button-" + selectedNbOfTransitions).addClass('btn-link-selected');
+    };
+    nbOfTransitions.forEach(function(nbOfTransitions) {
+      $("#nb-of-transitions-button-" + nbOfTransitions).click(function() {
+        nbOfTransitionsSelected(nbOfTransitions);
+      });
+    });
+    nbOfTransitionsSelected(selectedNbOfTransitions);
 
     function reset() {
       $("#bell").off();
@@ -43,6 +64,7 @@ $(function() {
       intervalSelected(selectedTimeInterval);
       $("#about-link").show();
       $("#start-button").html("Begin");
+      setupTimer();
     }
 
     $("#start-button").click(function() {
@@ -61,6 +83,7 @@ $(function() {
       $("#meditation-text").html("Prepare for meditation " +
                                  "<span class='blink'>...</span>");
       var startTime = null;
+      var currentInterval = 1;
       meditationProgressTimer = window.setTimeout(function() {
         if (!startTime) {
           startTime = Date.now();
@@ -77,10 +100,17 @@ $(function() {
             }
             return num;
           }
-          $("#meditation-text").html(doubleDigits(minutesRemaining) + ":" +
-                                     doubleDigits(secondsRemaining));
           if (timeRemaining > 0) {
+            if ( elapsed > (selectedTimeInterval*60*currentInterval/selectedNbOfTransitions) ) {
+              currentInterval++;
+              $("#bell").get(0).currentTime = 0;
+              $("#bell").get(0).play();
+            }
             meditationProgressTimer = window.setTimeout(timerFired, 1000);
+            $("#meditation-text").html("Time remaining: " +
+                                       doubleDigits(minutesRemaining) + ":" +
+                                       doubleDigits(secondsRemaining) + "<br>" +
+                                       "Current interval: " + currentInterval);
           } else {
             // we're done
             $("#meditation-text").html("<span class='blink'>00:00</span>");
