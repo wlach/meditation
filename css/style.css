@@ -62,7 +62,7 @@ a:hover {
     animation: click 0.5s ease-in-out 2 alternate;
     -webkit-animation: click 0.5s ease-in-out 2 alternate;
 }
-#time-options {
+#time-options, #transition-options {
     display: -webkit-flex;
     display: flex;
     -webkit-flex-direction: row;
@@ -77,7 +77,7 @@ a:hover {
     align-content: stretch;
     padding-bottom: 20px;
 }
-.time-selector-btn {
+.time-selector-btn, .transitions-selector-btn {
     cursor: pointer;
     width: 40px;
     color: #2A6496;

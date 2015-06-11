@@ -19,8 +19,11 @@
     <script id="meditationDialog" type="text/html">
       <div id="meditation-dialog" style="display: none;">
         <div class="meditation-timer">
-          <p id="meditation-text">{{duration}} minute meditation</p>
+          <p id="meditation-text">
+          </p>
           <div id="time-options">
+          </div>
+          <div id="transition-options">
           </div>
           <div id="start-button" class="full-btn">Begin</div>
         </div>
@@ -43,6 +46,22 @@
       {{#timeIntervals}}
       <div id="time-button-{{value}}" class="time-selector-btn">{{value}}</div>
       {{/timeIntervals}}
+    </script>
+    <script id="transitionOptionButtons" type="text/html">
+      {{#nbOfTransitions}}
+      <div id="nb-of-transitions-button-{{value}}" class="transitions-selector-btn">{{value}}</div>
+      {{/nbOfTransitions}}
+    </script>
+    <script id="meditationText" type="text/html">
+      <span id="meditation-text-duration"></span>
+      <br>
+      <span id="meditation-text-transitions"></span>
+    </script>
+    <script id="meditationTextDuration" type="text/html">
+      {{duration}} minute meditation
+    </script>
+    <script id="meditationTextTransitions" type="text/html">
+      {{nbOfTransitions}} transition{{plural}}
     </script>
     <script src="js/jquery-2.1.1.min.js"></script>
     <script src="js/ICanHaz.min.js"></script>
