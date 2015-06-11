@@ -41,7 +41,7 @@ $(function() {
     function nbOfTransitionsSelected(nbOfTransitions) {
       selectedNbOfTransitions = nbOfTransitions;
       window.localStorage.defaultNbOfTransitions = nbOfTransitions;
-      $("#meditation-text-transitions").html(ich.meditationTextTransitions({'nbOfTransitions': nbOfTransitions, 'plural': (nbOfTransitions>0?'s':'')}, true));
+      $("#meditation-text-transitions").html(ich.meditationTextTransitions({'nbOfTransitions': nbOfTransitions, 'plural': (nbOfTransitions>1?'s':'')}, true));
       $(".transitions-selector-btn").removeClass('btn-link-selected');
       $("#nb-of-transitions-button-" + selectedNbOfTransitions).addClass('btn-link-selected');
     };
