@@ -109,7 +109,9 @@ document.addEventListener("DOMContentLoaded", () => {
       clearTimeout(timer);
       timer = null;
       intervalSelected(selectedTimeInterval);
+      timeOpts.style.display = "";
       aboutLink.style.display = "";
+      themeToggle.style.display = "";
       startBtn.textContent = "Begin";
     }
 
@@ -122,7 +124,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       acquireWakeLock();
       startBtn.textContent = "Cancel";
+      timeOpts.style.display = "none";
       aboutLink.style.display = "none";
+      themeToggle.style.display = "none";
       textEl.innerHTML =
         "Prepare for meditation <span class='blink'>...</span>";
 
