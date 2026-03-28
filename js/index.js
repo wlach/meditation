@@ -1,111 +1,166 @@
 "use strict";
 
-$(function() {
-  var animationEndPrefixes = "animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd";
+document.addEventListener("DOMContentLoaded", () => {
+  const bell = document.getElementById("bell");
+  const content = document.getElementById("content");
+  const timeIntervals = [10, 15, 20, 25, 30, 35, 40];
+
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./sw.js");
+  }
+
+  const themeToggle = document.getElementById("theme-toggle");
+  const root = document.documentElement;
+  function applyTheme(theme) {
+    root.setAttribute("data-theme", theme);
+    themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
+    localStorage.theme = theme;
+  }
+  function currentTheme() {
+    return (
+      localStorage.theme ||
+      (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark")
+    );
+  }
+  applyTheme(currentTheme());
+  themeToggle.addEventListener("click", () => {
+    applyTheme(currentTheme() === "dark" ? "light" : "dark");
+  });
+
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => root.querySelectorAll(sel);
+  const dd = (n) => (n < 10 ? "0" + n : String(n));
+
+  function fadeIn(el) {
+    el.style.display = "";
+    el.classList.remove("fade-out");
+    el.classList.add("fade-in");
+  }
+  function fadeOut(el, cb) {
+    el.classList.remove("fade-in");
+    el.classList.add("fade-out");
+    el.addEventListener("animationend", function handler() {
+      el.removeEventListener("animationend", handler);
+      el.style.display = "none";
+      if (cb) cb();
+    });
+  }
 
   function setupTimer() {
-    var timeIntervals = [10, 15, 20, 25, 30, 35, 40];
-    var selectedTimeInterval = parseInt(window.localStorage.defaultTimeInterval);
-    if ($.inArray(selectedTimeInterval, timeIntervals) < 0) {
+    let selectedTimeInterval = parseInt(localStorage.defaultTimeInterval, 10);
+    if (!timeIntervals.includes(selectedTimeInterval)) {
       selectedTimeInterval = 20;
     }
-    var meditationProgressTimer = null;
-    var lock = null;
+    let timer = null;
+    let wakeLock = null;
 
-    $("#content").html(ich.meditationDialog({ 'duration': selectedTimeInterval }));
-    $("#meditation-dialog").fadeIn('fast');
+    content.innerHTML = document.getElementById("tmpl-meditation").innerHTML;
+    const dialog = $("#meditation-dialog");
+    const textEl = $("#meditation-text");
+    const startBtn = $("#start-button");
+    const aboutLink = $("#about-link");
+    const timeOpts = $("#time-options");
 
-    $("#time-options").append(ich.timeOptionButtons({'timeIntervals': timeIntervals.map(function v(val) { return { "value": val } }) }));
+    timeOpts.innerHTML = timeIntervals
+      .map(
+        (v) =>
+          `<div id="time-button-${v}" class="time-selector-btn">${v}</div>`,
+      )
+      .join("");
 
-    function intervalSelected(timeInterval) {
-      selectedTimeInterval = timeInterval;
-      window.localStorage.defaultTimeInterval = selectedTimeInterval;
-      $("#meditation-text").html(timeInterval + " minute meditation");
-      $(".time-selector-btn").removeClass('btn-link-selected');
-      $("#time-button-" + timeInterval).addClass('btn-link-selected');
-    };
-    timeIntervals.forEach(function(timeInterval) {
-      $("#time-button-" + timeInterval).click(function() {
-        intervalSelected(timeInterval);
-      });
-    });
-    intervalSelected(selectedTimeInterval);
-
-    function reset() {
-      $("#bell").off();
-
-      if (lock) {
-        lock.unlock();
-        lock = null;
-      }
-      window.clearTimeout(meditationProgressTimer);
-      meditationProgressTimer = null;
-      intervalSelected(selectedTimeInterval);
-      $("#about-link").show();
-      $("#start-button").html("Begin");
+    function intervalSelected(t) {
+      selectedTimeInterval = t;
+      localStorage.defaultTimeInterval = t;
+      textEl.textContent = t + " minute meditation";
+      $$(".time-selector-btn").forEach((b) =>
+        b.classList.remove("btn-link-selected"),
+      );
+      $(`#time-button-${t}`).classList.add("btn-link-selected");
     }
 
-    $("#start-button").click(function() {
-      if (window.navigator.requestWakeLock) {
-        // currently only works on FirefoxOS :(
-        lock = window.navigator.requestWakeLock('screen');
+    timeIntervals.forEach((t) => {
+      $(`#time-button-${t}`).addEventListener("click", () =>
+        intervalSelected(t),
+      );
+    });
+    intervalSelected(selectedTimeInterval);
+    fadeIn(dialog);
+
+    async function acquireWakeLock() {
+      try {
+        if ("wakeLock" in navigator) {
+          wakeLock = await navigator.wakeLock.request("screen");
+        }
+      } catch (_) {
+        /* not critical */
       }
-      if (meditationProgressTimer) {
-        $("#bell").get(0).pause(); // stop bell if playing
+    }
+
+    function releaseWakeLock() {
+      if (wakeLock) {
+        wakeLock.release();
+        wakeLock = null;
+      }
+    }
+
+    function reset() {
+      bell.removeEventListener("ended", reset);
+      releaseWakeLock();
+      clearTimeout(timer);
+      timer = null;
+      intervalSelected(selectedTimeInterval);
+      aboutLink.style.display = "";
+      startBtn.textContent = "Begin";
+    }
+
+    startBtn.addEventListener("click", () => {
+      if (timer) {
+        bell.pause();
         reset();
         return;
       }
 
-      $("#start-button").html("Cancel");
-      $("#about-link").hide();
-      $("#meditation-text").html("Prepare for meditation " +
-                                 "<span class='blink'>...</span>");
-      var startTime = null;
-      meditationProgressTimer = window.setTimeout(function() {
-        if (!startTime) {
-          startTime = Date.now();
-        }
-        function timerFired() {
-          var elapsed = parseInt((Date.now() - startTime) / 1000.0);
-          var timeRemaining = (selectedTimeInterval * 60) - elapsed;
+      acquireWakeLock();
+      startBtn.textContent = "Cancel";
+      aboutLink.style.display = "none";
+      textEl.innerHTML =
+        "Prepare for meditation <span class='blink'>...</span>";
 
-          var minutesRemaining = parseInt(timeRemaining / 60);
-          var secondsRemaining = timeRemaining % 60;
-          function doubleDigits(num) {
-            if (num < 10) {
-              return "0" + num;
-            }
-            return num;
-          }
-          $("#meditation-text").html(doubleDigits(minutesRemaining) + ":" +
-                                     doubleDigits(secondsRemaining));
-          if (timeRemaining > 0) {
-            meditationProgressTimer = window.setTimeout(timerFired, 1000);
+      timer = setTimeout(() => {
+        const startTime = Date.now();
+
+        function tick() {
+          const elapsed = Math.floor((Date.now() - startTime) / 1000);
+          const remaining = selectedTimeInterval * 60 - elapsed;
+          if (remaining > 0) {
+            textEl.textContent =
+              dd(Math.floor(remaining / 60)) + ":" + dd(remaining % 60);
+            timer = setTimeout(tick, 1000);
           } else {
-            // we're done
-            $("#meditation-text").html("<span class='blink'>00:00</span>");
-            $("#bell").get(0).currentTime = 0;
-            $("#bell").get(0).play();
-
-            $("#bell").on("ended", reset);
+            textEl.innerHTML = "<span class='blink'>00:00</span>";
+            bell.currentTime = 0;
+            bell.play();
+            bell.addEventListener("ended", reset);
           }
         }
-        $("#bell").get(0).play();
-        timerFired();
-      }, 10*1000);
+
+        bell.play();
+        tick();
+      }, 10000);
     });
 
-    $("#about-link").click(function() {
-      $("#meditation-dialog").fadeOut("fast", function() {
-        $("#content").html(ich.aboutDialog());
-        $("#about-dialog").fadeIn('fast');
-        $("#return-button").click(function() {
-          $("#about-dialog").fadeOut("fast", function() {
-            setupTimer();
-          });
-        })
+    aboutLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      fadeOut(dialog, () => {
+        content.innerHTML = document.getElementById("tmpl-about").innerHTML;
+        const aboutDialog = $("#about-dialog");
+        fadeIn(aboutDialog);
+        $("#return-button").addEventListener("click", () => {
+          fadeOut(aboutDialog, () => setupTimer());
+        });
       });
     });
   }
+
   setupTimer();
 });
