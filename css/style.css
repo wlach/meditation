@@ -72,10 +72,13 @@ a:hover {
     cursor: pointer;
     width: 40px;
     color: var(--accent);
+    font: inherit;
     font-size: 20px;
     text-align: center;
     padding: 4px;
     border-radius: 8px;
+    border: none;
+    background: none;
     transition: background 0.15s;
 }
 .time-selector-btn:hover {
@@ -89,9 +92,12 @@ a:hover {
 }
 .full-btn {
     display: block;
+    width: 100%;
+    font: inherit;
     font-size: 18px;
     cursor: pointer;
     color: var(--accent);
+    background: none;
     border: 1px solid var(--accent);
     border-radius: 20px;
     padding: 10px 16px;
@@ -137,4 +143,10 @@ a:hover {
 }
 @keyframes fadeOut {
     to { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *:before, *:after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
 }

@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
     timeOpts.innerHTML = timeIntervals
       .map(
         (v) =>
-          `<div id="time-button-${v}" class="time-selector-btn">${v}</div>`,
+          `<button id="time-button-${v}" class="time-selector-btn" aria-pressed="false">${v}</button>`,
       )
       .join("");
 
@@ -72,10 +72,12 @@ document.addEventListener("DOMContentLoaded", () => {
       selectedTimeInterval = t;
       localStorage.defaultTimeInterval = t;
       textEl.textContent = t + " minute meditation";
-      $$(".time-selector-btn").forEach((b) =>
-        b.classList.remove("btn-link-selected"),
-      );
+      $$(".time-selector-btn").forEach((b) => {
+        b.classList.remove("btn-link-selected");
+        b.setAttribute("aria-pressed", "false");
+      });
       $(`#time-button-${t}`).classList.add("btn-link-selected");
+      $(`#time-button-${t}`).setAttribute("aria-pressed", "true");
     }
 
     timeIntervals.forEach((t) => {

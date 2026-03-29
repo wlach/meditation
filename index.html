@@ -21,9 +21,9 @@
     <template id="tmpl-meditation">
       <div id="meditation-dialog" style="display: none;">
         <div class="meditation-timer">
-          <p id="meditation-text"></p>
-          <div id="time-options"></div>
-          <div id="start-button" class="full-btn">Begin</div>
+          <p id="meditation-text" aria-live="polite"></p>
+          <div id="time-options" role="group" aria-label="Meditation duration in minutes"></div>
+          <button id="start-button" class="full-btn">Begin</button>
         </div>
         <div id="about-link">
           <a href="#">About</a>
@@ -35,7 +35,7 @@
       <div id="about-dialog" style="display: none;">
         <p>Written by <a href="https://wrla.ch" target="_blank" rel="noopener">Will Lachance</a> in the hopes that others will find it helpful. Source code freely <a href="https://github.com/wlach/meditation" target="_blank" rel="noopener">available</a> under the <a href="https://unlicense.org/">UNLICENSE</a>.</p>
         <p>Bell sound from "Kerri" at <a href="https://freesound.org/people/kerri/sounds/27421/" target="_blank" rel="noopener">freesound</a>.</p>
-        <div id="return-button" class="full-btn" style="margin-top:40px;">Return</div>
+        <button id="return-button" class="full-btn" style="margin-top:40px;">Return</button>
       </div>
     </template>
 
