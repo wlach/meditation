@@ -58,14 +58,10 @@ a:hover {
     font-weight: 300;
     padding-bottom: 40px;
 }
-.btn-link-selected {
-    border: 1px solid var(--accent);
-    border-radius: 16px;
-}
 #time-options {
     display: flex;
     justify-content: center;
-    gap: 2px;
+    gap: 4px;
     padding-bottom: 20px;
 }
 .time-selector-btn {
@@ -77,12 +73,15 @@ a:hover {
     text-align: center;
     padding: 4px;
     border-radius: 8px;
-    border: none;
+    border: 1px solid transparent;
     background: none;
-    transition: background 0.15s;
+    transition: background 0.15s, border-color 0.15s;
 }
 .time-selector-btn:hover {
     background: var(--accent-bg);
+}
+.time-selector-btn.btn-link-selected {
+    border-color: rgba(91, 163, 217, 0.5);
 }
 .blink {
     animation: blink 1s ease-in-out infinite alternate;
