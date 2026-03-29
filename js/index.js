@@ -3,7 +3,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const bell = document.getElementById("bell");
   const content = document.getElementById("content");
-  const timeIntervals = [10, 15, 20, 25, 30, 35, 40];
+  const timeIntervals = [5, 10, 20, 25, 30, 45, 60];
 
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("./sw.js");
