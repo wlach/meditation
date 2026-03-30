@@ -34,8 +34,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function fadeIn(el) {
     el.style.display = "";
+    el.style.opacity = "0";
     el.classList.remove("fade-out");
-    el.classList.add("fade-in");
+    requestAnimationFrame(() => {
+      el.style.opacity = "";
+      el.classList.add("fade-in");
+    });
   }
   function fadeOut(el, cb) {
     el.classList.remove("fade-in");
