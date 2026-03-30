@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => root.querySelectorAll(sel);
   const dd = (n) => (n < 10 ? "0" + n : String(n));
+  const fmt = (secs) => dd(Math.floor(secs / 60)) + ":" + dd(secs % 60);
 
   function fadeIn(el) {
     el.style.display = "";
@@ -71,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function intervalSelected(t) {
       selectedTimeInterval = t;
       localStorage.defaultTimeInterval = t;
-      textEl.textContent = t + " minute meditation";
+      textEl.textContent = t + " minutes";
       $$(".time-selector-btn").forEach((b) => {
         b.classList.remove("btn-link-selected");
         b.setAttribute("aria-pressed", "false");
@@ -114,6 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
       timeOpts.style.display = "";
       aboutLink.style.display = "";
       themeToggle.style.display = "";
+      textEl.classList.remove("countdown");
       startBtn.textContent = "Begin";
     }
 
@@ -133,21 +135,26 @@ document.addEventListener("DOMContentLoaded", () => {
         "Prepare for meditation <span class='blink'>...</span>";
 
       timer = setTimeout(() => {
+        textEl.classList.add("countdown");
         const startTime = Date.now();
+        let bellRung = false;
 
         function tick() {
           const elapsed = Math.floor((Date.now() - startTime) / 1000);
           const remaining = selectedTimeInterval * 60 - elapsed;
           if (remaining > 0) {
-            textEl.textContent =
-              dd(Math.floor(remaining / 60)) + ":" + dd(remaining % 60);
-            timer = setTimeout(tick, 1000);
+            textEl.textContent = fmt(remaining);
           } else {
-            textEl.innerHTML = "<span class='blink'>00:00</span>";
-            bell.currentTime = 0;
-            bell.play();
-            bell.addEventListener("ended", reset);
+            if (!bellRung) {
+              bellRung = true;
+              bell.currentTime = 0;
+              bell.play();
+              startBtn.textContent = "Done";
+            }
+            textEl.textContent =
+              remaining === 0 ? "00:00" : "-" + fmt(-remaining);
           }
+          timer = setTimeout(tick, 1000);
         }
 
         bell.play();

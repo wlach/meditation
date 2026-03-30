@@ -58,6 +58,9 @@ a:hover {
     font-weight: 300;
     padding-bottom: 40px;
 }
+#meditation-text.countdown {
+    font-size: 48px;
+}
 #time-options {
     display: flex;
     justify-content: center;
